@@ -13,7 +13,9 @@
 class mdadm::params {
   case $::osfamily {
     'redhat': {
-      $mdadm_package = 'mdadm'
+      $mdadm_package       = 'mdadm'
+      $raid_check_path     = '/etc/sysconfig/raid-check'
+      $raid_check_template = "${module_name}/redhat/raid-check.el6.erb"
     }
     default: {
       fail("Module ${module_name} is not supported on ${::operatingsystem}")

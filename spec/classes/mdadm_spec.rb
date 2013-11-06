@@ -2,8 +2,11 @@ require 'spec_helper'
 
 describe 'mdadm', :type => :class do
 
-  describe 'for osfamily RedHat' do
-    it { should contain_class('mdadm') }
+  context 'on osfamily RedHat' do
+    let(:facts) {{ :osfamily => 'RedHat' }}
+
+    it { should contain_package('mdadm').with_ensure('present') }
+    it { should include_class('mdadm::params') }
   end
 
 end

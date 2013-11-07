@@ -24,6 +24,10 @@ class mdadm(
     ensure => present,
   }
 
+  Package[$mdadm::params::mdadm_package] ->
+  class { 'mdadm::mdmonitor': }
+
+  Package[$mdadm::params::mdadm_package] ->
   class { 'mdadm::raid_check':
     options => $raid_check_options,
   }

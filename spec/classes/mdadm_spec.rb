@@ -2,12 +2,25 @@ require 'spec_helper'
 
 describe 'mdadm', :type => :class do
 
+  shared_examples 'mdadm' do
+    it { should contain_package('mdadm').with_ensure('present') }
+    it { should include_class('mdadm::params') }
+    it { should contain_class('mdadm::mdmonitor') }
+    it do
+      should contain_service('mdmonitor').with({
+        :ensure     => 'running',
+        :hasrestart => true,
+        :hasstatus  => true,
+        :enable     => true,
+      })
+    end
+  end
+
   context 'on osfamily RedHat' do
     let(:facts) {{ :osfamily => 'RedHat' }}
 
     context 'no params' do
-      it { should contain_package('mdadm').with_ensure('present') }
-      it { should include_class('mdadm::params') }
+      it_behaves_like 'mdadm'
       it do
         should contain_file('/etc/sysconfig/raid-check').
           with_content(/ENABLED="yes"/).
@@ -23,8 +36,7 @@ describe 'mdadm', :type => :class do
       context '{}' do
         let(:params) {{ :raid_check_options => {} }}
 
-        it { should contain_package('mdadm').with_ensure('present') }
-        it { should include_class('mdadm::params') }
+        it_behaves_like 'mdadm'
         it do
           should contain_file('/etc/sysconfig/raid-check').
             with_content(/ENABLED="yes"/).
@@ -50,8 +62,7 @@ describe 'mdadm', :type => :class do
           }
         end
 
-        it { should contain_package('mdadm').with_ensure('present') }
-        it { should include_class('mdadm::params') }
+        it_behaves_like 'mdadm'
         it do
           should contain_file('/etc/sysconfig/raid-check').
             with_content(/ENABLED="foo"/).

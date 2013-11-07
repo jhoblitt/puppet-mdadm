@@ -20,15 +20,13 @@ class mdadm(
 
   include mdadm::params
 
+  anchor { 'mdadm::begin': } ->
   package { $mdadm::params::mdadm_package:
     ensure => present,
-  }
-
-  Package[$mdadm::params::mdadm_package] ->
-  class { 'mdadm::mdmonitor': }
-
-  Package[$mdadm::params::mdadm_package] ->
+  } ->
+  class { 'mdadm::mdmonitor': } ->
   class { 'mdadm::raid_check':
     options => $raid_check_options,
-  }
+  } ->
+  anchor { 'mdadm::end': }
 }

@@ -6,3 +6,4 @@ Gemfile.lock
 *.rej
 *.patch
 .rspec_system/
+*.swp

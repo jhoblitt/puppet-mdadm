@@ -5,15 +5,15 @@ describe 'mdadm::config', :type => :class do
     it { should include_class('mdadm::config') }
   end
 
-  context 'mailaddr =>' do
-    context 'undef' do
-      let(:params) {{ :mailaddr => nil }}
+  context 'options =>' do
+    context '{}' do
+      let(:params) {{ :options => {}}}
 
       it { should include_class('mdadm::config') }
     end
 
-    context 'foo' do
-      let(:params) {{ :mailaddr => 'foo' }}
+    context '{ mailaddr => foo }' do
+      let(:params) {{ :options => { 'mailaddr' => 'foo' } }}
 
       it { should contain_augeas('mdadm.conf mailaddr') }
 
@@ -26,13 +26,13 @@ describe 'mdadm::config', :type => :class do
       end
     end
 
-    context 'true' do
-      let(:params) {{ :mailaddr => true }}
+    context 'undef' do
+      let(:params) {{ :options => nil }}
 
       it 'should fail' do
-        expect { should }.to raise_error /is not a string/
+        expect { should }.to raise_error(/is not a Hash/)
       end
     end
-  end # mailaddr =>
+  end # options =>
 
 end

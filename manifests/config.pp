@@ -3,9 +3,11 @@
 # This class should be considered private.
 #
 class mdadm::config(
-  $mailaddr = undef,
+  $options = {}
 ) {
-  validate_string($mailaddr)
+  validate_hash($options)
+
+  $mailaddr= $options['mailaddr']
 
   if $mailaddr {
     augeas { 'mdadm.conf mailaddr':

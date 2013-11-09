@@ -5,6 +5,8 @@
 class mdadm::raid_check(
   $options = {}
 ) {
+  validate_hash($options)
+
   include mdadm::params
 
   # note that 'NICE' is el6.x only

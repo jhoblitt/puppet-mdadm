@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'mdadm::config' do
+describe 'mdadm::config', :type => :class do
   context 'no params' do
     it { should include_class('mdadm::config') }
   end

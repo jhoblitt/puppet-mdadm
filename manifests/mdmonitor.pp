@@ -2,11 +2,17 @@
 #
 # This class should be considered private.
 #
-class mdadm::mdmonitor {
+class mdadm::mdmonitor(
+  $ensure = 'running',
+  $enable = true,
+) {
+  validate_re($ensure, '^running$|^stopped$')
+  validate_bool($enable)
+
   service { 'mdmonitor':
-    ensure     => 'running',
+    ensure     => $ensure,
     hasrestart => true,
     hasstatus  => true,
-    enable     => true,
+    enable     => $enable,
   }
 }

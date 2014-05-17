@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe 'mdadm::config', :type => :class do
   context 'no params' do
-    it { should include_class('mdadm::config') }
+    it { should contain_class('mdadm::config') }
   end
 
   context 'options =>' do
     context '{}' do
       let(:params) {{ :options => {}}}
 
-      it { should include_class('mdadm::config') }
+      it { should contain_class('mdadm::config') }
     end
 
     context '{ mailaddr => foo }' do

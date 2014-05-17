@@ -8,7 +8,7 @@ describe 'mdadm::params', :type => :class do
       }
     end
 
-    it { should include_class('mdadm::params') }
+    it { should contain_class('mdadm::params') }
   end
 
   describe 'unsupported osfamily' do
@@ -20,7 +20,7 @@ describe 'mdadm::params', :type => :class do
     end
   
     it 'should fail' do
-      expect { should include_class('mdadm::params') }.
+      expect { should contain_class('mdadm::params') }.
         to raise_error(Puppet::Error, /not supported on Debian/)
     end
   end

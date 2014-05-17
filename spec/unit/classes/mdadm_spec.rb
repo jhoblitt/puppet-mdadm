@@ -4,7 +4,7 @@ describe 'mdadm', :type => :class do
 
   shared_examples 'mdadm' do
     it { should contain_package('mdadm').with_ensure('present') }
-    it { should include_class('mdadm::params') }
+    it { should contain_class('mdadm::params') }
     it { should contain_class('mdadm::mdmonitor') }
     it do
       should contain_service('mdmonitor').with({

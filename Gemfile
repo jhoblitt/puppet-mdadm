@@ -16,9 +16,9 @@ gem 'ruby-augeas',             :require => false
 # https://github.com/domcleal/rspec-puppet-augeas/issues/9
 # https://github.com/domcleal/rspec-puppet-augeas/issues/14
 gem 'rspec-puppet', '< 1.0',   :require => false
-gem 'rspec-system',            :require => false
-gem 'rspec-system-puppet',     :require => false
-gem 'rspec-system-serverspec', :require => false
+gem 'beaker',                  :require => false
+gem 'beaker-rspec',            :require => false
 gem 'serverspec',              :require => false
+gem 'pry',                     :require => false
 
 # vim:ft=ruby

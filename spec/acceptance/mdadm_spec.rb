@@ -1,11 +1,8 @@
-require 'spec_helper_system'
+require 'spec_helper_acceptance'
 
 describe 'mdadm class' do
-  case node.facts['osfamily']
-  when 'RedHat', 'Debian'
-    package_name = 'mdadm'
-    service_name = 'mdadm'
-  end
+  package_name = 'mdadm'
+  service_name = 'mdmonitor'
 
   describe 'running puppet code' do
     # Using puppet_apply as a helper
@@ -15,11 +12,8 @@ describe 'mdadm class' do
       EOS
 
       # Run it twice and test for idempotency
-      puppet_apply(pp) do |r|
-        r.exit_code.should_not == 1
-        r.refresh
-        r.exit_code.should be_zero
-      end
+      expect(apply_manifest(pp, :catch_failures => true).stderr).to eq("")
+      expect(apply_manifest(pp, :catch_changes => true).stderr).to eq("")
     end
   end
 

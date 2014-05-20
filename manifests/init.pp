@@ -1,30 +1,7 @@
 # == Class: mdadm
 #
-# simple template
-#
-# === Parameters
-#
-# All parameteres are optional.
-#
-# [*config_options*]
-#   Hash.  defaults to '{}'
-#
-# [*force_service*]
-#   Bool.  defaults to 'false'
-#
-# [*service_ensure*]
-#   String.  defaults to 'running'
-#   Valid strings are: 'running', 'stopped'
-#
-# [*service_enable*]
-#   Bool.  defaults to 'true'
-#
-# [*raid_check_options*]
-#   Hash.  defaults to '{}'
-#
-# === Examples
-#
-# include mdadm
+# Please refer to https://github.com/jhoblitt/puppet-mdadm#usage for parameter
+# documentation.
 #
 class mdadm(
   $config_options     = {},

@@ -68,7 +68,10 @@ class { '::mdadm':
 
 ##### `force_service`
 
-`Bool`  defaults to 'false'
+`Bool`  defaults to `false`
+
+By default, the `mdadm` class will not attempt to start the `mdmonitor` service
+unless the `$::mdadm_arrays` fact lists `md` arrays.  If this parameter is set to `true` the class will always attempt to start the `mdmonitor` service.
 
 ##### `service_ensure`
 

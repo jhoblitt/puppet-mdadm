@@ -41,9 +41,10 @@ Usage
 
 ### Examples
 
+#### Simple
+
 ```puppet
 include ::mdadm
-
 ```
 
 ### Classes

@@ -54,12 +54,12 @@ include ::mdadm
 ```puppet
 # defaults
 class { '::mdadm':
-  config_file_manage => true,
-  config_options     => {},
-  force_service      => false,
-  service_ensure     => 'running',
-  service_enable     => true,
-  raid_check_options => {},
+  config_file_manage  => true,
+  config_file_options => {},
+  force_service       => false,
+  service_ensure      => 'running',
+  service_enable      => true,
+  raid_check_options  => {},
 }
 ```
 
@@ -69,9 +69,12 @@ class { '::mdadm':
 
 Enables/disables management of the `mdadm.conf` configuration file.
 
-##### `config_options`
+##### `config_file_options`
 
 `Hash`  defaults to '{}'
+
+Keyword/value pairs to be set in the `mdadm.conf` configuration file.
+Currently, `mailaddr` is the only supported key.
 
 ##### `force_service`
 

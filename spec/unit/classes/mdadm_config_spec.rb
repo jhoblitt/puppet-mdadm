@@ -13,7 +13,7 @@ describe 'mdadm', :type => :class do
     it { should_not contain_augeas('mdadm.conf mailaddr') }
   end
 
-  # config_file_manage should have no visiable behavior without config_options
+  # config_file_manage should have no visiable behavior without config_file_options
   context 'config_file_manage =>' do
     context 'true' do
       let(:params) {{ :config_file_manage => true }}
@@ -36,15 +36,15 @@ describe 'mdadm', :type => :class do
     end
   end # config_file_manage =>
 
-  context 'config_options =>' do
+  context 'config_file_options =>' do
     context '{}' do
-      let(:params) {{ :config_options => {}}}
+      let(:params) {{ :config_file_options => {}}}
 
       it { should_not contain_augeas('mdadm.conf mailaddr') }
     end
 
     context '{ mailaddr => foo }' do
-      let(:params) {{ :config_options => { 'mailaddr' => 'foo' } }}
+      let(:params) {{ :config_file_options => { 'mailaddr' => 'foo' } }}
 
       it { should contain_augeas('mdadm.conf mailaddr') }
 
@@ -82,7 +82,7 @@ describe 'mdadm', :type => :class do
     end # { mailaddr => foo }
 
     context 'undef' do
-      let(:params) {{ :config_options => nil }}
+      let(:params) {{ :config_file_options => nil }}
 
       it 'should fail' do
         expect { should }.to raise_error(/is not a Hash/)

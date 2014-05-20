@@ -4,15 +4,15 @@
 # documentation.
 #
 class mdadm(
-  $config_file_manage = $::mdadm::params::config_file_manage,
-  $config_options     = {},
-  $force_service      = false,
-  $service_ensure     = 'running',
-  $service_enable     = true,
-  $raid_check_options = {},
+  $config_file_manage  = $::mdadm::params::config_file_manage,
+  $config_file_options = {},
+  $force_service       = false,
+  $service_ensure      = 'running',
+  $service_enable      = true,
+  $raid_check_options  = {},
 ) inherits mdadm::params {
   validate_bool($config_file_manage)
-  validate_hash($config_options)
+  validate_hash($config_file_options)
   validate_bool($force_service)
   validate_re($service_ensure, '^running$|^stopped$')
   validate_bool($service_enable)
@@ -36,7 +36,7 @@ class mdadm(
   if $config_file_manage {
     Package[$mdadm::params::mdadm_package] ->
     class { 'mdadm::config':
-      options => $config_options,
+      options => $config_file_options,
     } ->
     Class['mdadm::mdmonitor']
   }

@@ -77,6 +77,28 @@ describe 'mdadm', :type => :class do
       end
     end # service_force
 
+    context 'raid_check_manage =>' do
+      context 'true' do
+        let(:params) {{ :raid_check_manage => true }}
+
+        it { should contain_file('/etc/sysconfig/raid-check') }
+      end
+
+      context 'false' do
+        let(:params) {{ :raid_check_manage => false }}
+
+        it { should_not contain_file('/etc/sysconfig/raid-check') }
+      end
+
+      context 'foo' do
+        let(:params) {{ :raid_check_manage => 'foo' }}
+
+        it 'should fail' do
+          expect { should }.to raise_error(/is not a boolean/)
+        end
+      end
+    end # raid_check_manage
+
     context 'raid_check_options =>' do
       context '{}' do
         let(:params) {{ :raid_check_options => {} }}

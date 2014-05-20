@@ -11,8 +11,6 @@ class mdadm::raid_check(
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  include mdadm::params
-
   # note that 'NICE' is el6.x only
 
   $default_options = {
@@ -26,11 +24,11 @@ class mdadm::raid_check(
 
   $safe_options = merge($default_options, $options)
 
-  file { $mdadm::params::raid_check_path:
+  file { $mdadm::raid_check_path:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template($mdadm::params::raid_check_template),
+    content => template($mdadm::raid_check_template),
   }
 }

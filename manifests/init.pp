@@ -9,6 +9,7 @@ class mdadm(
   $service_force       = false,
   $service_ensure      = 'running',
   $service_enable      = true,
+  $raid_check_manage   = true,
   $raid_check_options  = {},
 ) inherits mdadm::params {
   validate_bool($config_file_manage)
@@ -16,6 +17,7 @@ class mdadm(
   validate_bool($service_force)
   validate_re($service_ensure, '^running$|^stopped$')
   validate_bool($service_enable)
+  validate_bool($raid_check_manage)
   validate_hash($raid_check_options)
 
   if $service_force {
@@ -46,13 +48,16 @@ class mdadm(
     enable => $use_service_enable,
   }
 
-  class { 'mdadm::raid_check':
-    options => $raid_check_options,
+  if $raid_check_manage {
+    Class['mdadm::mdmonitor'] ->
+    class { 'mdadm::raid_check':
+      options => $raid_check_options,
+    } ->
+    Anchor['mdadm::end']
   }
 
   anchor { 'mdadm::begin': } ->
   Package[$mdadm::params::mdadm_package] ->
   Class['mdadm::mdmonitor'] ->
-  Class['mdadm::raid_check'] ->
   anchor { 'mdadm::end': }
 }

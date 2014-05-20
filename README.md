@@ -59,6 +59,7 @@ class { '::mdadm':
   force_service       => false,
   service_ensure      => 'running',
   service_enable      => true,
+  raid_check_manage   => true
   raid_check_options  => {},
 }
 ```
@@ -92,6 +93,12 @@ Valid strings are: 'running', 'stopped'
 ##### `service_enable`
 
 `Bool`  defaults to 'true'
+
+##### `raid_check_manage`
+
+`Bool`  defaults to `true`
+
+Enables/disables management of the EL specific `raid-check` cron task.
 
 ##### `raid_check_options`
 

@@ -8,6 +8,9 @@ Puppet mdadm Module
 1. [Overview](#overview)
 2. [Description](#description)
 3. [Usage](#usage)
+    * [Examples](#examples)
+    * [Classes](#classes)
+    * [Facts](#facts)
 4. [Limitations](#limitations)
     * [Tested Platforms](#tested-platforms)
 5. [Versioning](#versioning)
@@ -36,7 +39,7 @@ and array health checks.
 Usage
 -----
 
-### Example
+### Examples
 
 ```puppet
 include ::mdadm

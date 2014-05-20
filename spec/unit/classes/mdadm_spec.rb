@@ -22,6 +22,7 @@ describe 'mdadm', :type => :class do
         :osfamily                  => 'RedHat',
         :operatingsystem           => 'Scientific',
         :operatingsystemmajrelease => 6,
+        :mdadm_arrays              => '/dev/md0',
       }
     end
 
@@ -37,6 +38,44 @@ describe 'mdadm', :type => :class do
           with_content(/SKIP_DEVS=""/)
       end
     end # no params
+
+    context 'service_force =>' do
+      context 'true' do
+        let(:params) {{ :service_force => true }}
+        before { facts.delete(:mdadm_arrays) }
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'running',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => true,
+          })
+        end
+      end
+
+      context 'false' do
+        let(:params) {{ :service_force => false }}
+        before { facts.delete(:mdadm_arrays) }
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'stopped',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => false,
+          })
+        end
+      end
+
+      context 'foo' do
+        let(:params) {{ :service_force => 'foo' }}
+
+        it 'should fail' do
+          expect { should }.to raise_error(/is not a boolean/)
+        end
+      end
+    end # service_force
 
     context 'raid_check_options =>' do
       context '{}' do
@@ -84,7 +123,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :raid_check_options => 'some_string' }}
 
         it 'should fail' do
-          expect { should }.to raise_error /is not a Hash/
+          expect { should }.to raise_error(/is not a Hash/)
         end
       end
 

@@ -6,19 +6,19 @@
 class mdadm(
   $config_file_manage  = $::mdadm::params::config_file_manage,
   $config_file_options = {},
-  $force_service       = false,
+  $service_force       = false,
   $service_ensure      = 'running',
   $service_enable      = true,
   $raid_check_options  = {},
 ) inherits mdadm::params {
   validate_bool($config_file_manage)
   validate_hash($config_file_options)
-  validate_bool($force_service)
+  validate_bool($service_force)
   validate_re($service_ensure, '^running$|^stopped$')
   validate_bool($service_enable)
   validate_hash($raid_check_options)
 
-  if $::force_service {
+  if $service_force {
     $use_service_ensure = $service_ensure
     $use_service_enable = $service_enable
   } elsif $::mdadm_arrays {
@@ -42,8 +42,8 @@ class mdadm(
   }
 
   class { 'mdadm::mdmonitor':
-    ensure => $service_ensure,
-    enable => $service_enable,
+    ensure => $use_service_ensure,
+    enable => $use_service_enable,
   }
 
   class { 'mdadm::raid_check':

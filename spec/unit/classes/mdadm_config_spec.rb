@@ -13,6 +13,29 @@ describe 'mdadm', :type => :class do
     it { should_not contain_augeas('mdadm.conf mailaddr') }
   end
 
+  # config_file_manage should have no visiable behavior without config_options
+  context 'config_file_manage =>' do
+    context 'true' do
+      let(:params) {{ :config_file_manage => true }}
+
+      it { should_not contain_augeas('mdadm.conf mailaddr') }
+    end
+
+    context 'false' do
+      let(:params) {{ :config_file_manage => false }}
+
+      it { should_not contain_augeas('mdadm.conf mailaddr') }
+    end
+
+    context 'foo' do
+      let(:params) {{ :config_file_manage => 'foo' }}
+
+      it 'should fail' do
+        expect { should }.to raise_error(/is not a boolean/)
+      end
+    end
+  end # config_file_manage =>
+
   context 'config_options =>' do
     context '{}' do
       let(:params) {{ :config_options => {}}}
@@ -42,7 +65,21 @@ describe 'mdadm', :type => :class do
           should execute.idempotently
         end
       end
-    end
+
+      context 'and config_file_manage =>' do
+        context 'true' do
+          before { params[:config_file_manage] = true }
+
+          it { should contain_augeas('mdadm.conf mailaddr') }
+        end
+
+        context 'false' do
+          before { params[:config_file_manage] = false }
+
+          it { should_not contain_augeas('mdadm.conf mailaddr') }
+        end
+      end
+    end # { mailaddr => foo }
 
     context 'undef' do
       let(:params) {{ :config_options => nil }}

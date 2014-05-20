@@ -4,19 +4,19 @@
 # documentation.
 #
 class mdadm(
+  $config_file_manage = $::mdadm::params::config_file_manage,
   $config_options     = {},
   $force_service      = false,
   $service_ensure     = 'running',
   $service_enable     = true,
   $raid_check_options = {},
-) {
+) inherits mdadm::params {
+  validate_bool($config_file_manage)
   validate_hash($config_options)
   validate_bool($force_service)
   validate_re($service_ensure, '^running$|^stopped$')
   validate_bool($service_enable)
   validate_hash($raid_check_options)
-
-  include mdadm::params
 
   if $::force_service {
     $use_service_ensure = $service_ensure
@@ -33,8 +33,12 @@ class mdadm(
     ensure => present,
   }
 
-  class { 'mdadm::config':
-    options => $config_options,
+  if $config_file_manage {
+    Package[$mdadm::params::mdadm_package] ->
+    class { 'mdadm::config':
+      options => $config_options,
+    } ->
+    Class['mdadm::mdmonitor']
   }
 
   class { 'mdadm::mdmonitor':
@@ -48,7 +52,6 @@ class mdadm(
 
   anchor { 'mdadm::begin': } ->
   Package[$mdadm::params::mdadm_package] ->
-  Class['mdadm::config'] ->
   Class['mdadm::mdmonitor'] ->
   Class['mdadm::raid_check'] ->
   anchor { 'mdadm::end': }

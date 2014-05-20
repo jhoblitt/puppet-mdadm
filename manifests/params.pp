@@ -3,6 +3,8 @@
 # This class should be considered private.
 #
 class mdadm::params {
+  $config_file_manage = true
+
   case $::osfamily {
     'redhat': {
       case $::operatingsystemmajrelease {

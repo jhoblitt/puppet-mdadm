@@ -54,6 +54,7 @@ include ::mdadm
 ```puppet
 # defaults
 class { '::mdadm':
+  config_file_manage => true,
   config_options     => {},
   force_service      => false,
   service_ensure     => 'running',
@@ -61,6 +62,12 @@ class { '::mdadm':
   raid_check_options => {},
 }
 ```
+
+##### `config_file_manage`
+
+`Bool`  defaults to `true`
+
+Enables/disables management of the `mdadm.conf` configuration file.
 
 ##### `config_options`
 

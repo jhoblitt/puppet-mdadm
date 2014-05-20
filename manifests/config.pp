@@ -7,7 +7,11 @@ class mdadm::config(
 ) {
   validate_hash($options)
 
-  $mailaddr= $options['mailaddr']
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
+  }
+
+  $mailaddr = $options['mailaddr']
 
   if $mailaddr {
     augeas { 'mdadm.conf mailaddr':

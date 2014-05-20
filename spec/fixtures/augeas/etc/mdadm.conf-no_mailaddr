@@ -1,0 +1,9 @@
+MAILADDR bob
+ARRAY /dev/md2 level=raid1 num-devices=2 metadata=0.90 UUID=7622c472:8bae76ef:fd43f97f:cac9e474
+ARRAY /dev/md6 level=raid1 num-devices=2 metadata=0.90 UUID=79499688:25c334c5:2a49f936:6d028a99
+ARRAY /dev/md3 level=raid1 num-devices=2 metadata=0.90 UUID=4c4165a4:6e365131:940f2c0f:8752dd6d
+ARRAY /dev/md1 level=raid1 num-devices=2 metadata=0.90 UUID=484e83c7:b3d8add5:c5a3a6b1:eed17f36
+ARRAY /dev/md4 level=raid1 num-devices=2 metadata=0.90 UUID=55e1b3dd:84d7268e:582473da:e4996483
+ARRAY /dev/md5 level=raid1 num-devices=2 metadata=0.90 UUID=108303a9:022de073:886b6b14:3dde1ca0
+ARRAY /dev/md0 level=raid1 num-devices=2 metadata=0.90 UUID=c454bb80:a8a07c91:01a40e52:120b0b84
+ARRAY /dev/md7 level=raid1 num-devices=2 metadata=0.90 UUID=33f0d778:1481a080:2891c258:069235dd

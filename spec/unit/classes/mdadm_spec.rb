@@ -17,7 +17,13 @@ describe 'mdadm', :type => :class do
   end
 
   context 'on osfamily RedHat' do
-    let(:facts) {{ :osfamily => 'RedHat' }}
+    let(:facts) do
+      {
+        :osfamily                  => 'RedHat',
+        :operatingsystem           => 'Scientific',
+        :operatingsystemmajrelease => 6,
+      }
+    end
 
     context 'no params' do
       it_behaves_like 'mdadm'

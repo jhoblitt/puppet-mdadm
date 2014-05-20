@@ -2,9 +2,11 @@ require 'spec_helper'
 
 describe 'mdadm::params', :type => :class do
   describe 'for osfamily RedHat' do
-    let :facts do
+    let(:facts) do
       {
-        :osfamily => 'RedHat',
+        :osfamily                  => 'RedHat',
+        :operatingsystem           => 'Scientific',
+        :operatingsystemmajrelease => 6,
       }
     end
 

@@ -1,23 +1,41 @@
 require 'spec_helper'
 
-describe 'mdadm::config', :type => :class do
-  context 'no params' do
-    it { should contain_class('mdadm::config') }
+describe 'mdadm', :type => :class do
+  let(:facts) do
+    {
+      :osfamily                  => 'RedHat',
+      :operatingsystem           => 'Scientific',
+      :operatingsystemmajrelease => 6,
+    }
   end
 
-  context 'options =>' do
-    context '{}' do
-      let(:params) {{ :options => {}}}
+  context 'no params' do
+    it { should_not contain_augeas('mdadm.conf mailaddr') }
+  end
 
-      it { should contain_class('mdadm::config') }
+  context 'config_options =>' do
+    context '{}' do
+      let(:params) {{ :config_options => {}}}
+
+      it { should_not contain_augeas('mdadm.conf mailaddr') }
     end
 
     context '{ mailaddr => foo }' do
-      let(:params) {{ :options => { 'mailaddr' => 'foo' } }}
+      let(:params) {{ :config_options => { 'mailaddr' => 'foo' } }}
 
       it { should contain_augeas('mdadm.conf mailaddr') }
 
+      # mdadm.conf already has a MAILADDR line
       describe_augeas 'mdadm.conf mailaddr', :lens => 'mdadm_conf', :target => 'etc/mdadm.conf' do
+        it 'should change MAILADDR' do
+          should execute.with_change
+          aug_get('mailaddr/value').should == 'foo'
+          should execute.idempotently
+        end
+      end
+
+      # mdadm.conf does not have a MAILADDR line
+      describe_augeas 'mdadm.conf mailaddr', :lens => 'mdadm_conf', :target => 'etc/mdadm.conf', :fixture => 'etc/mdadm.conf-no_mailaddr' do
         it 'should change MAILADDR' do
           should execute.with_change
           aug_get('mailaddr/value').should == 'foo'
@@ -27,7 +45,7 @@ describe 'mdadm::config', :type => :class do
     end
 
     context 'undef' do
-      let(:params) {{ :options => nil }}
+      let(:params) {{ :config_options => nil }}
 
       it 'should fail' do
         expect { should }.to raise_error(/is not a Hash/)

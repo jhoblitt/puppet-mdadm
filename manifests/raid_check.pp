@@ -7,6 +7,10 @@ class mdadm::raid_check(
 ) {
   validate_hash($options)
 
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
+  }
+
   include mdadm::params
 
   # note that 'NICE' is el6.x only

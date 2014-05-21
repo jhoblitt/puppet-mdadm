@@ -124,12 +124,13 @@ file. Example:
 
 ```puppet
   raid_check_options => {
-    'ENABLED'     => 'yes',
-    'CHECK'       => 'check',
-    'NICE'        => 'low',
-    'CHECK_DEVS'  => '/dev/md0 /dev/md1',
-    'REPAIR_DEVS' => '/dev/md0',
-    'SKIP_DEVS'   => '/dev/md1',
+    'ENABLED'       => 'yes',
+    'CHECK'         => 'check',
+    'NICE'          => 'low',
+    'CHECK_DEVS'    => '/dev/md0 /dev/md1',
+    'REPAIR_DEVS'   => '/dev/md0',
+    'SKIP_DEVS'     => '/dev/md1',
+    'MAXCONCURRENT' => '2',
   },
 ```
 

@@ -77,6 +77,82 @@ describe 'mdadm', :type => :class do
       end
     end # service_force
 
+    context 'service_ensure =>' do
+      # we need to set service_force => true to disable the automatic service
+      # setup based on the existance of the ::mdadm_arrays fact
+      context 'running' do
+        let(:params) {{ :service_force => true, :service_ensure => 'running' }}
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'running',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => true,
+          })
+        end
+      end
+
+      context 'stopped' do
+        let(:params) {{:service_force => true,  :service_ensure => 'stopped' }}
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'stopped',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => true,
+          })
+        end
+      end
+
+      context 'foo' do
+        let(:params) {{ :service_ensure => 'foo' }}
+
+        it 'should fail' do
+          expect { should }.to raise_error(/does not match/)
+        end
+      end
+    end # service_ensure
+
+    context 'service_enable =>' do
+      # we need to set service_force => true to disable the automatic service
+      # setup based on the existance of the ::mdadm_arrays fact
+      context 'true' do
+        let(:params) {{ :service_force => true, :service_enable => true }}
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'running',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => true,
+          })
+        end
+      end
+
+      context 'false' do
+        let(:params) {{:service_force => true,  :service_enable => false }}
+
+        it do
+          should contain_service('mdmonitor').with({
+            :ensure     => 'running',
+            :hasrestart => true,
+            :hasstatus  => true,
+            :enable     => false,
+          })
+        end
+      end
+
+      context 'foo' do
+        let(:params) {{ :service_enable => 'foo' }}
+
+        it 'should fail' do
+          expect { should }.to raise_error(/is not a boolean/)
+        end
+      end
+    end # service_enable
+
     context 'raid_check_manage =>' do
       context 'true' do
         let(:params) {{ :raid_check_manage => true }}

@@ -88,11 +88,14 @@ unless the `$::mdadm_arrays` fact lists `md` arrays.  If this parameter is set t
 
 `String`  defaults to 'running'
 
-Valid strings are: 'running', 'stopped'
+Sets the state of the `mdmonitor` service.  Valid strings are: 'running',
+'stopped'
 
 ##### `service_enable`
 
 `Bool`  defaults to 'true'
+
+Enables/disables the `mdmonitor` service on boot.
 
 ##### `raid_check_manage`
 

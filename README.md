@@ -159,6 +159,7 @@ Limitations
 ### Tested Platforms
 
 * el6.x
+* el5.x
 
 Versioning
 ----------

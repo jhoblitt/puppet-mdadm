@@ -47,6 +47,14 @@ Usage
 include ::mdadm
 ```
 
+#### Set `mdmonitor` email address
+
+```puppet
+class { '::mdadm':
+  config_file_options => { 'mailaddr' => 'root' },
+}
+```
+
 ### Classes
 
 #### `mdadm`
@@ -75,7 +83,11 @@ Enables/disables management of the `mdadm.conf` configuration file.
 `Hash`  defaults to '{}'
 
 Keyword/value pairs to be set in the `mdadm.conf` configuration file.
-Currently, `mailaddr` is the only supported key.
+Currently, `mailaddr` is the only supported key. Example:
+
+```puppet
+  config_file_options => { 'mailaddr' => 'root' },
+```
 
 ##### `force_service`
 
@@ -111,14 +123,14 @@ Keyword/value pairs to be set in the `/etc/sysconfig/raid-check` configuration
 file. Example:
 
 ```puppet
-{
-  'ENABLED'     => 'yes',
-  'CHECK'       => 'check',
-  'NICE'        => 'low',
-  'CHECK_DEVS'  => '/dev/md0 /dev/md1',
-  'REPAIR_DEVS' => '/dev/md0',
-  'SKIP_DEVS'   => '/dev/md1',
-}
+  raid_check_options => {
+    'ENABLED'     => 'yes',
+    'CHECK'       => 'check',
+    'NICE'        => 'low',
+    'CHECK_DEVS'  => '/dev/md0 /dev/md1',
+    'REPAIR_DEVS' => '/dev/md0',
+    'SKIP_DEVS'   => '/dev/md1',
+  },
 ```
 
 ### Facts

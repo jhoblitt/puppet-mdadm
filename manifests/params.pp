@@ -42,7 +42,8 @@ class mdadm::params {
           }
         }
         default: {
-          fail("Module ${module_name} is not supported on ${::operatingsystem} ${::operatingsystemmajrelease}")
+          $platform = "${::operatingsystem} ${::operatingsystemmajrelease}"
+          fail("Module ${module_name} is not supported on ${platform}")
         }
       }
     }

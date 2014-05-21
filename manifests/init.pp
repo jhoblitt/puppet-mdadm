@@ -5,12 +5,12 @@
 #
 class mdadm(
   $config_file_manage  = $::mdadm::params::config_file_manage,
-  $config_file_options = {},
-  $service_force       = false,
-  $service_ensure      = 'running',
-  $service_enable      = true,
-  $raid_check_manage   = true,
-  $raid_check_options  = {},
+  $config_file_options = $::mdadm::params::config_file_options,
+  $service_force       = $::mdadm::params::service_force,
+  $service_ensure      = $::mdadm::params::service_ensure,
+  $service_enable      = $::mdadm::params::service_enable,
+  $raid_check_manage   = $::mdadm::params::raid_check_manage,
+  $raid_check_options  = $::mdadm::params::raid_check_options,
 ) inherits mdadm::params {
   validate_bool($config_file_manage)
   validate_hash($config_file_options)

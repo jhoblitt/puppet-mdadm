@@ -4,6 +4,12 @@
 #
 class mdadm::params {
   $config_file_manage = true
+  $config_file_options = {}
+  $service_force       = false
+  $service_ensure      = 'running'
+  $service_enable      = true
+  $raid_check_manage   = true
+  $raid_check_options  = {}
 
   case $::osfamily {
     'redhat': {

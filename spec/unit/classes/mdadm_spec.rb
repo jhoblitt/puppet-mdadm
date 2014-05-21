@@ -28,12 +28,13 @@ describe 'mdadm', :type => :class do
       it_behaves_like 'mdadm'
       it do
         should contain_file('/etc/sysconfig/raid-check').
-          with_content(/ENABLED="yes"/).
-          with_content(/CHECK="check"/). 
-          with_content(/NICE="low"/). 
-          with_content(/CHECK_DEVS=""/). 
-          with_content(/REPAIR_DEVS=""/). 
-          with_content(/SKIP_DEVS=""/)
+          with_content(/^ENABLED="yes"/).
+          with_content(/^CHECK="check"/). 
+          with_content(/^NICE="low"/). 
+          with_content(/^CHECK_DEVS=""/). 
+          with_content(/^REPAIR_DEVS=""/). 
+          with_content(/^SKIP_DEVS=""/).
+          with_content(/^MAXCONCURRENT=""/)
       end
       it { should_not contain_augeas('mdadm.conf mailaddr') }
     end # no params
@@ -261,12 +262,13 @@ describe 'mdadm', :type => :class do
           it_behaves_like 'mdadm'
           it do
             should contain_file('/etc/sysconfig/raid-check').
-              with_content(/ENABLED="yes"/).
-              with_content(/CHECK="check"/).
-              with_content(/NICE="low"/).
-              with_content(/CHECK_DEVS=""/).
-              with_content(/REPAIR_DEVS=""/).
-              with_content(/SKIP_DEVS=""/)
+              with_content(/^ENABLED="yes"/).
+              with_content(/^CHECK="check"/).
+              with_content(/^NICE="low"/).
+              with_content(/^CHECK_DEVS=""/).
+              with_content(/^REPAIR_DEVS=""/).
+              with_content(/^SKIP_DEVS=""/).
+              with_content(/^MAXCONCURRENT=""/)
           end
         end # el6.x
 
@@ -277,14 +279,15 @@ describe 'mdadm', :type => :class do
           it_behaves_like 'mdadm'
           it do
             should contain_file('/etc/sysconfig/raid-check').
-              with_content(/ENABLED="yes"/).
-              with_content(/CHECK="check"/).
-              with_content(/CHECK_DEVS=""/).
-              with_content(/REPAIR_DEVS=""/).
-              with_content(/SKIP_DEVS=""/)
+              with_content(/^ENABLED="yes"/).
+              with_content(/^CHECK="check"/).
+              with_content(/^CHECK_DEVS=""/).
+              with_content(/^REPAIR_DEVS=""/).
+              with_content(/^SKIP_DEVS=""/)
 
             should_not contain_file('/etc/sysconfig/raid-check').
-              with_content(/NICE="low"/)
+              with_content(/^NICE="low"/).
+              with_content(/^MAXCONCURRENT=""/)
           end
         end # el5.x
       end # {}
@@ -306,12 +309,13 @@ describe 'mdadm', :type => :class do
         it_behaves_like 'mdadm'
         it do
           should contain_file('/etc/sysconfig/raid-check').
-            with_content(/ENABLED="foo"/).
-            with_content(/CHECK="foo"/).
-            with_content(/NICE="foo"/).
-            with_content(/CHECK_DEVS="foo"/).
-            with_content(/REPAIR_DEVS="foo"/).
-            with_content(/SKIP_DEVS="foo"/)
+            with_content(/^ENABLED="foo"/).
+            with_content(/^CHECK="foo"/).
+            with_content(/^NICE="foo"/).
+            with_content(/^CHECK_DEVS="foo"/).
+            with_content(/^REPAIR_DEVS="foo"/).
+            with_content(/^SKIP_DEVS="foo"/).
+            with_content(/^MAXCONCURRENT=""/)
         end
       end
 

@@ -23,12 +23,13 @@ class mdadm::params {
           $raid_check_template = "${module_name}/redhat/raid-check.el6.erb"
           # note that 'NICE' is el6.x only
           $raid_check_default_options = {
-            'ENABLED'     => 'yes',
-            'CHECK'       => 'check',
-            'NICE'        => 'low',
-            'CHECK_DEVS'  => '',
-            'REPAIR_DEVS' => '',
-            'SKIP_DEVS'   => '',
+            'ENABLED'       => 'yes',
+            'CHECK'         => 'check',
+            'NICE'          => 'low',
+            'CHECK_DEVS'    => '',
+            'REPAIR_DEVS'   => '',
+            'SKIP_DEVS'     => '',
+            'MAXCONCURRENT' => '',
           }
         }
         5: {

@@ -34,6 +34,8 @@
 #       NICE - Change the raid check CPU and IO priority in order to make
 #		the system more responsive during lengthy checks.  Valid
 #		values are high, normal, low, idle.
+#	MAXCONCURENT - Limit the number of devices to be checked at a time.
+#		By default all devices will be checked at the same time.
 #
 # Note: the raid-check script is run by the /etc/cron.d/raid-check cron job.
 # Users may modify the frequency and timing at which raid-check is run by
@@ -43,6 +45,15 @@
 # Note2: you can not use symbolic names for the raid devices, such as you
 # /dev/md/root.  The names used in this file must match the names seen in
 # /proc/mdstat and in /sys/block.
+
+# ENABLED=yes
+# CHECK=check
+# NICE=low
+# To check devs /dev/md0 and /dev/md3, use "md0 md3"
+# CHECK_DEVS=""
+# REPAIR_DEVS=""
+# SKIP_DEVS=""
+# MAXCONCURRENT=
 
 <% @safe_options.keys.sort.each do |key| -%>
 <%= key %>="<%= @safe_options[key] %>"

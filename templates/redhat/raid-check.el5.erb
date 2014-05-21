@@ -45,6 +45,13 @@
 # /dev/md/root.  The names used in this file must match the names seen in
 # /proc/mdstat and in /sys/block.
 
+# ENABLED=yes
+# CHECK=check
+# To check devs /dev/md0 and /dev/md3, use "md0 md3"
+# CHECK_DEVS=""
+# REPAIR_DEVS=""
+# SKIP_DEVS=""
+
 <% @safe_options.keys.sort.each do |key| -%>
 <%= key %>="<%= @safe_options[key] %>"
 <% end -%>

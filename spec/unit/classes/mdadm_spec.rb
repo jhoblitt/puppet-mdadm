@@ -177,19 +177,40 @@ describe 'mdadm', :type => :class do
 
     context 'raid_check_options =>' do
       context '{}' do
-        let(:params) {{ :raid_check_options => {} }}
+        context 'on el6.x' do
+          before { facts[:operatingsystemmajrelease] = 6 }
+          let(:params) {{ :raid_check_options => {} }}
 
-        it_behaves_like 'mdadm'
-        it do
-          should contain_file('/etc/sysconfig/raid-check').
-            with_content(/ENABLED="yes"/).
-            with_content(/CHECK="check"/). 
-            with_content(/NICE="low"/). 
-            with_content(/CHECK_DEVS=""/). 
-            with_content(/REPAIR_DEVS=""/). 
-            with_content(/SKIP_DEVS=""/)
-        end
-      end
+          it_behaves_like 'mdadm'
+          it do
+            should contain_file('/etc/sysconfig/raid-check').
+              with_content(/ENABLED="yes"/).
+              with_content(/CHECK="check"/).
+              with_content(/NICE="low"/).
+              with_content(/CHECK_DEVS=""/).
+              with_content(/REPAIR_DEVS=""/).
+              with_content(/SKIP_DEVS=""/)
+          end
+        end # el6.x
+
+        context 'on el5.x' do
+          before { facts[:operatingsystemmajrelease] = 5 }
+          let(:params) {{ :raid_check_options => {} }}
+
+          it_behaves_like 'mdadm'
+          it do
+            should contain_file('/etc/sysconfig/raid-check').
+              with_content(/ENABLED="yes"/).
+              with_content(/CHECK="check"/).
+              with_content(/CHECK_DEVS=""/).
+              with_content(/REPAIR_DEVS=""/).
+              with_content(/SKIP_DEVS=""/)
+
+            should_not contain_file('/etc/sysconfig/raid-check').
+              with_content(/NICE="low"/)
+          end
+        end # el5.x
+      end # {}
 
       context '{ ... }' do
         let(:params) do
@@ -209,10 +230,10 @@ describe 'mdadm', :type => :class do
         it do
           should contain_file('/etc/sysconfig/raid-check').
             with_content(/ENABLED="foo"/).
-            with_content(/CHECK="foo"/). 
-            with_content(/NICE="foo"/). 
-            with_content(/CHECK_DEVS="foo"/). 
-            with_content(/REPAIR_DEVS="foo"/). 
+            with_content(/CHECK="foo"/).
+            with_content(/NICE="foo"/).
+            with_content(/CHECK_DEVS="foo"/).
+            with_content(/REPAIR_DEVS="foo"/).
             with_content(/SKIP_DEVS="foo"/)
         end
       end

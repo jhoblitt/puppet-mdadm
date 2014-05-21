@@ -107,6 +107,20 @@ Enables/disables management of the EL specific `raid-check` cron task.
 
 `Hash`  defaults to '{}'
 
+Keyword/value pairs to be set in the `/etc/sysconfig/raid-check` configuration
+file. Example:
+
+```puppet
+{
+  'ENABLED'     => 'yes',
+  'CHECK'       => 'check',
+  'NICE'        => 'low',
+  'CHECK_DEVS'  => '/dev/md0 /dev/md1',
+  'REPAIR_DEVS' => '/dev/md0',
+  'SKIP_DEVS'   => '/dev/md1',
+}
+```
+
 ### Facts
 
 #### `mdadm`

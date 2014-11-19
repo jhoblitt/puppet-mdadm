@@ -58,7 +58,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :config_file_manage => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a boolean/)
+          should raise_error(/is not a boolean/)
         end
       end
     end # config_file_manage =>
@@ -112,7 +112,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :config_file_options => nil }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a Hash/)
+          should raise_error(/is not a Hash/)
         end
       end
     end # options =>
@@ -150,7 +150,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :service_force => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a boolean/)
+          should raise_error(/is not a boolean/)
         end
       end
     end # service_force
@@ -188,7 +188,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :service_ensure => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/does not match/)
+          should raise_error(/does not match/)
         end
       end
     end # service_ensure
@@ -226,7 +226,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :service_enable => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a boolean/)
+          should raise_error(/is not a boolean/)
         end
       end
     end # service_enable
@@ -248,7 +248,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :raid_check_manage => 'foo' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a boolean/)
+          should raise_error(/is not a boolean/)
         end
       end
     end # raid_check_manage
@@ -323,7 +323,7 @@ describe 'mdadm', :type => :class do
         let(:params) {{ :raid_check_options => 'some_string' }}
 
         it 'should fail' do
-          expect { should }.to raise_error(/is not a Hash/)
+          should raise_error(/is not a Hash/)
         end
       end
 

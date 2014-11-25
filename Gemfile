@@ -19,7 +19,7 @@ gem 'rspec-core', '~> 2.0',    :require => false
 # see https://github.com/domcleal/rspec-puppet-augeas/issues/9
 # rspec-puppet-augeas requires rspec-puppet < 1
 gem 'rspec-puppet-augeas',
-  :git => 'git@github.com:jhoblitt/rspec-puppet-augeas.git',
+  :git => 'https://github.com/jhoblitt/rspec-puppet-augeas.git',
   :ref => '6152e283a65f96188dded35be30f6e0540208594',
   :require => false
 gem 'ruby-augeas',             :require => false

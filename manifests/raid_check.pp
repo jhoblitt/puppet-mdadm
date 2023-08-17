@@ -3,9 +3,8 @@
 # This class should be considered private.
 #
 class mdadm::raid_check(
-  $options = {}
+  Hash $options = {}
 ) {
-  validate_hash($options)
 
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")

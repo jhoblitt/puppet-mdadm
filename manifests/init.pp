@@ -4,21 +4,14 @@
 # documentation.
 #
 class mdadm(
-  $config_file_manage  = $::mdadm::params::config_file_manage,
-  $config_file_options = $::mdadm::params::config_file_options,
-  $service_force       = $::mdadm::params::service_force,
-  $service_ensure      = $::mdadm::params::service_ensure,
-  $service_enable      = $::mdadm::params::service_enable,
-  $raid_check_manage   = $::mdadm::params::raid_check_manage,
-  $raid_check_options  = $::mdadm::params::raid_check_options,
+  Boolean $config_file_manage               = $::mdadm::params::config_file_manage,
+  Hash $config_file_options                 = $::mdadm::params::config_file_options,
+  Boolean $service_force                    = $::mdadm::params::service_force,
+  Enum['running','stopped'] $service_ensure = $::mdadm::params::service_ensure,
+  Boolean $service_enable                   = $::mdadm::params::service_enable,
+  Boolean $raid_check_manage                = $::mdadm::params::raid_check_manage,
+  Hash $raid_check_options                  = $::mdadm::params::raid_check_options,
 ) inherits mdadm::params {
-  validate_bool($config_file_manage)
-  validate_hash($config_file_options)
-  validate_bool($service_force)
-  validate_re($service_ensure, '^running$|^stopped$')
-  validate_bool($service_enable)
-  validate_bool($raid_check_manage)
-  validate_hash($raid_check_options)
 
   if $service_force {
     $use_service_ensure = $service_ensure

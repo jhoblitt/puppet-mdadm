@@ -3,11 +3,9 @@
 # This class should be considered private.
 #
 class mdadm::mdmonitor(
-  $ensure = 'running',
-  $enable = true,
+  Enum['running','stopped'] $ensure = 'running',
+  Boolean $enable                   = true,
 ) {
-  validate_re($ensure, '^running$|^stopped$')
-  validate_bool($enable)
 
   service { 'mdmonitor':
     ensure     => $ensure,
